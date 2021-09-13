@@ -1,9 +1,7 @@
 import React from "react";
-import "date-fns";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -12,6 +10,8 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { PinkButton } from "../LoginHeader";
 import { APP_COLOR } from "../../consistent";
 import useStore from "../../store";
+import MomentUtils from "@date-io/moment";
+
 
 const StyledForm = styled.form`
   display: grid;
@@ -62,7 +62,7 @@ export default function FlightStatusFrom() {
         label="Flight Number"
         variant="outlined"
       />
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
         <Grid container justifyContent="space-around">
           <KeyboardDatePicker
             disableToolbar

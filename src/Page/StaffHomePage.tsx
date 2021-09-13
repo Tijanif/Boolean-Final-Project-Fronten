@@ -8,7 +8,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import useStore from "../store";
 import { Link } from "react-router-dom";
 import { ArrowLeftTwoTone } from "@material-ui/icons";
-import DepartureStaff from "../Component/departureStaff";
+import DepartureStaff from "../Component/DepartureStaff";
 import AirportList from "../Component/AirportList";
 
 const StyledPage = styled.div`

@@ -73,7 +73,7 @@ type BookExtraLuggageType = {
 export type UserBookingType = {
   id: number;
   userId: number;
-  tickets: TicketType[] | SingleTicketType;
+  tickets: TicketType[];
   BookExtraLuggage: BookExtraLuggageType[];
 };
 
@@ -128,7 +128,7 @@ type StoreType = {
   airportList: AirportType[] | null;
   setAirportList: () => void;
 
-  loggedInUser: null | userCredentials | { id: number };
+  loggedInUser: null | userCredentials | { id: number, role: string };
   setLoginUser: (loggedInUser: userCredentials) => void;
   userCredentials: {};
   setUserCredentials: (userCredentials: {}) => void;
@@ -209,7 +209,7 @@ const useStore = create<StoreType>((set, get) => ({
     password: null,
   },
   setUserCredentials: (userCredentials) => set({ userCredentials }),
-  loggedInUser: { id: 30 },
+  loggedInUser: { id: 30, role: "" },
   setLoginUser: async (userCredentials) => {
     const loginUser = await fetch(`http://localhost:3000/login`, {
       method: "POST",
