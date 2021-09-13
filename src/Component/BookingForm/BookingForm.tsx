@@ -1,67 +1,67 @@
-import React, { useState, useEffect, SyntheticEvent } from "react";
-import useStore from "../../store";
-import { useHistory } from "react-router";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import BookingButtons from "./BookingButtons";
-import { APP_COLOR } from "../../consistent";
+import React, { useState, useEffect, SyntheticEvent } from 'react';
+import useStore from '../../store';
+import { useHistory } from 'react-router';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import BookingButtons from './BookingButtons';
+import { APP_COLOR } from '../../consistent';
 
 const useStyles = makeStyles((theme) => ({
   main: {
     marginTop: theme.spacing(10),
   },
   mainHeader: {
-    margin: "20px",
-    textAlign: "center",
+    margin: '20px',
+    textAlign: 'center',
   },
   form: {},
   passengersNum: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
   },
   luggageOptions: {
-    display: "grid",
-    alignItems: "center",
+    display: 'grid',
+    alignItems: 'center',
     background: APP_COLOR.lightPink,
-    width: "200px",
-    height: "100px",
-    border: "1px, solid black",
-    borderRadius: "5px",
+    width: '200px',
+    height: '100px',
+    border: '1px, solid black',
+    borderRadius: '5px',
   },
   luggageText: {
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     marginBottom: theme.spacing(5),
   },
   boxWrapper: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    marginTop: "30px",
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    marginTop: '30px',
     gridGap: theme.spacing(8),
   },
   priceWrapper: {
-    display: "grid",
-    alignItems: "center",
-    marginTop: "30px",
+    display: 'grid',
+    alignItems: 'center',
+    marginTop: '30px',
     gridGap: theme.spacing(8),
   },
 }));
 
 const SquareButton = withStyles(() => ({
   root: {
-    height: "auto",
-    width: "15vw",
-    fontSize: "0.8rem",
+    height: 'auto',
+    width: '15vw',
+    fontSize: '0.8rem',
     color: APP_COLOR.white,
     backgroundColor: APP_COLOR.sharpPick,
     boxShadow: `0 0 5px 0 ${APP_COLOR.lightGrey}`,
-    placeSelf: "center",
-    "&:hover": {
+    placeSelf: 'center',
+    '&:hover': {
       backgroundColor: APP_COLOR.pink,
     },
   },
@@ -92,7 +92,7 @@ const BookingForm = () => {
   const inboundBooking = useStore((state) => state.inboundBooking);
   const loggedInUser = useStore((state) => state.loggedInUser);
 
-  console.log("inbound booking", inboundBooking);
+  console.log('inbound booking', inboundBooking);
   const ExtraLuggage = () => {
     let num = null;
     if (numberOf30KgLuggage !== 0) {
@@ -154,9 +154,9 @@ const BookingForm = () => {
       userId: loggedInUser?.id,
       bookExtraLuggage: [],
       tickets: [
-        { class: "econ", scheduledFlightId: 123 },
-        { class: "econ", scheduledFlightId: 123 },
-        { class: "econ", scheduledFlightId: 123 },
+        { class: 'econ', scheduledFlightId: 123 },
+        { class: 'econ', scheduledFlightId: 123 },
+        { class: 'econ', scheduledFlightId: 123 },
       ],
     };
 
@@ -182,26 +182,26 @@ const BookingForm = () => {
     if (inboundBooking) {
       if (numberOfPassangers !== 0) {
         for (let i = 0; i < numberOfPassangers; i++) {
-          console.log("inside inbookin", inbooking.tickets);
-          console.log("inside inboundbooking", inboundBooking.tickets);
+          console.log('inside inbookin', inbooking.tickets);
+          console.log('inside inboundbooking', inboundBooking.tickets);
           outbooking.tickets.push(inboundBooking?.tickets[0]);
-          console.log("after push", inbooking.tickets);
+          console.log('after push', inbooking.tickets);
         }
       }
     }
     // const target = e.target as HTMLFormElement;
 
-    fetch(`http://localhost:3000/booking`, {
-      method: "POST",
+    fetch(`https://boolean-air.herokuapp.com/booking`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ newBooking: outbooking }),
     }).then((res) => console.log(res.json()));
   };
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component='main' maxWidth='sm'>
       <h1 className={classes.mainHeader}>Booking Form</h1>
       <CssBaseline />
       <div className={classes.main}>
@@ -210,13 +210,13 @@ const BookingForm = () => {
             <Grid item xs={12}>
               <Grid
                 container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
+                direction='row'
+                justifyContent='space-between'
+                alignItems='center'
               >
-                <Typography component="h3">Number Of Passengers</Typography>
+                <Typography component='h3'>Number Of Passengers</Typography>
 
-                <Typography component="p">Need to check stock</Typography>
+                <Typography component='p'>Need to check stock</Typography>
                 <BookingButtons
                   valueToShow={numberOfPassangers}
                   handleDecrement={() =>
@@ -228,14 +228,14 @@ const BookingForm = () => {
                 />
               </Grid>
               <Grid>
-                <Typography component="p">Whant more luggage?</Typography>
+                <Typography component='p'>Whant more luggage?</Typography>
                 <Grid className={classes.boxWrapper}>
                   <Grid
                     container
-                    direction="column"
-                    alignItems="center"
+                    direction='column'
+                    alignItems='center'
                     spacing={2}
-                    justifyContent="space-between"
+                    justifyContent='space-between'
                   >
                     <div className={classes.luggageOptions}>
                       <Typography className={classes.luggageText}>
@@ -260,10 +260,10 @@ const BookingForm = () => {
                   </Grid>
                   <Grid
                     container
-                    direction="column"
-                    alignItems="center"
+                    direction='column'
+                    alignItems='center'
                     spacing={2}
-                    justifyContent="space-between"
+                    justifyContent='space-between'
                   >
                     <div className={classes.luggageOptions}>
                       <Typography className={classes.luggageText}>
@@ -288,10 +288,10 @@ const BookingForm = () => {
                   </Grid>
                   <Grid
                     container
-                    direction="column"
-                    alignItems="center"
+                    direction='column'
+                    alignItems='center'
                     spacing={2}
-                    justifyContent="space-between"
+                    justifyContent='space-between'
                   >
                     <div className={classes.luggageOptions}>
                       <Typography className={classes.luggageText}>
@@ -324,9 +324,9 @@ const BookingForm = () => {
             </Grid>
           </Grid>
           <SquareButton
-            variant="contained"
-            type="submit"
-            onClick={() => history.push("/myBooking")}
+            variant='contained'
+            type='submit'
+            onClick={() => history.push('/myBooking')}
           >
             PayMent
           </SquareButton>

@@ -1,5 +1,5 @@
-import React from "react";
-import create from "zustand";
+import React from 'react';
+import create from 'zustand';
 
 export type AirportType = {
   id: string;
@@ -42,7 +42,7 @@ export type FlightStatusType = {
 
 export type TicketType = {
   bookingId?: number;
-  class: "econ" | "first" | "business";
+  class: 'econ' | 'first' | 'business';
   id?: number;
   passengerFirstName?: null | string;
   passengerLastName?: null | string;
@@ -128,7 +128,7 @@ type StoreType = {
   airportList: AirportType[] | null;
   setAirportList: () => void;
 
-  loggedInUser: null | userCredentials | { id: number, role: string };
+  loggedInUser: null | userCredentials | { id: number; role: string };
   setLoginUser: (loggedInUser: userCredentials) => void;
   userCredentials: {};
   setUserCredentials: (userCredentials: {}) => void;
@@ -189,12 +189,12 @@ export type signUpUserCredentials = {
 };
 
 const useStore = create<StoreType>((set, get) => ({
-  modal: "",
+  modal: '',
   setModal: (modal) => set({ modal }),
   airportList: null,
   setAirportList: async () => {
     const airportsFromServer = await fetch(
-      `http://localhost:3000/airports`
+      `https://boolean-air.herokuapp.com/airports`
     ).then((res) => res.json());
     set({ airportList: airportsFromServer.data });
   },
@@ -209,12 +209,12 @@ const useStore = create<StoreType>((set, get) => ({
     password: null,
   },
   setUserCredentials: (userCredentials) => set({ userCredentials }),
-  loggedInUser: { id: 30, role: "" },
+  loggedInUser: { id: 30, role: '' },
   setLoginUser: async (userCredentials) => {
-    const loginUser = await fetch(`http://localhost:3000/login`, {
-      method: "POST",
+    const loginUser = await fetch(`https://boolean-air.herokuapp.com/login`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(userCredentials),
     }).then((response) => {
@@ -225,7 +225,7 @@ const useStore = create<StoreType>((set, get) => ({
     if (loginUser) {
       set({ loggedInUser: loginUser.user });
     } else {
-      set({ modal: "loginError" });
+      set({ modal: 'loginError' });
     }
   },
   signUpUserCredentials: {
@@ -238,10 +238,10 @@ const useStore = create<StoreType>((set, get) => ({
     set({ signUpUserCredentials }),
   signedUpUser: null,
   setSignupUser: async (signUpUserCredentials) => {
-    const signupUser = await fetch(`http://localhost:3000/signup`, {
-      method: "POST",
+    const signupUser = await fetch(`https://boolean-air.herokuapp.com/signup`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(signUpUserCredentials),
     }).then((response) => {
@@ -262,7 +262,7 @@ const useStore = create<StoreType>((set, get) => ({
   flightStatus: null,
   searchFlightStatus: async (flightNumber, date) => {
     const flightStatusFromServer = await fetch(
-      `http://localhost:3000/scheduledFlight/${flightNumber}?date=${date}`
+      `https://boolean-air.herokuapp.com/${flightNumber}?date=${date}`
     ).then((res) => res.json());
 
     if (flightStatusFromServer.data.length)
@@ -273,14 +273,14 @@ const useStore = create<StoreType>((set, get) => ({
   selectedAirport: null,
   setSelectedAirport: async (id) => {
     const currentAirport = await fetch(
-      `http://localhost:3000/scheduledFlight/departure/${id}`
+      `https://boolean-air.herokuapp.com/departure/${id}`
     ).then((res) => res.json());
     set({ selectedAirport: currentAirport });
   },
   departureFlightList: [],
   setDepartureFlightList: async (airportCode) => {
     const scheduledFlightByDeparture = await fetch(
-      `http://localhost:3000/scheduledFlight/departure/${airportCode}`
+      `https://boolean-air.herokuapp.com/departure/${airportCode}`
     ).then((res) => res.json());
     set({ departureFlightList: scheduledFlightByDeparture });
   },
@@ -290,7 +290,7 @@ const useStore = create<StoreType>((set, get) => ({
     if (!get().loggedInUser) return;
     else {
       const userBookingFromServer = await fetch(
-        `http://localhost:3000/bookings/user/${get().loggedInUser?.id}`
+        `https://boolean-air.herokuapp.com/user/${get().loggedInUser?.id}`
       ).then((res) => res.json());
       console.log(userBookingFromServer);
       if (userBookingFromServer.length)
@@ -312,14 +312,14 @@ const useStore = create<StoreType>((set, get) => ({
   searchFlightSeach: async (depart, arrival, dateDepart, dateArrival) => {
     if (dateDepart && dateArrival && depart && arrival) {
       const departureFlightSearchFromServer = await fetch(
-        `http://localhost:3000/scheduledFlight/?date=${dateDepart}&depart=${depart}&arrival=${arrival}`
+        `https://boolean-air.herokuapp.com/?date=${dateDepart}&depart=${depart}&arrival=${arrival}`
       ).then((res) => res.json());
-      console.log("Depart with date", departureFlightSearchFromServer);
+      console.log('Depart with date', departureFlightSearchFromServer);
 
       const arrivalFlightSearchFromServer = await fetch(
-        `http://localhost:3000/scheduledFlight/?date=${dateArrival}&arrival=${depart}&depart=${arrival}`
+        `https://boolean-air.herokuapp.com/?date=${dateArrival}&arrival=${depart}&depart=${arrival}`
       ).then((res) => res.json());
-      console.log("Arrival with date", arrivalFlightSearchFromServer);
+      console.log('Arrival with date', arrivalFlightSearchFromServer);
 
       if (departureFlightSearchFromServer.data.length)
         set({
@@ -328,9 +328,9 @@ const useStore = create<StoreType>((set, get) => ({
       else {
         set({ flightSearchNoDate: undefined });
         const flightSearchFromServerWithoutDate = await fetch(
-          `http://localhost:3000/scheduledFlight/?depart=${depart}&arrival=${arrival}`
+          `https://boolean-air.herokuapp.com/?depart=${depart}&arrival=${arrival}`
         ).then((res) => res.json());
-        console.log("depart with no date", flightSearchFromServerWithoutDate);
+        console.log('depart with no date', flightSearchFromServerWithoutDate);
         if (flightSearchFromServerWithoutDate.data.length)
           set({ flightSearchNoDate: flightSearchFromServerWithoutDate.data });
         else set({ flightSearchNoDate: undefined });
@@ -343,10 +343,10 @@ const useStore = create<StoreType>((set, get) => ({
       else {
         set({ arrivalFlightSearchNoDate: undefined });
         const arrivalFlightSearchFromServerWithoutDate = await fetch(
-          `http://localhost:3000/scheduledFlight/?depart=${arrival}&arrival=${depart}`
+          `https://boolean-air.herokuapp.com/?depart=${arrival}&arrival=${depart}`
         ).then((res) => res.json());
         console.log(
-          "arrival with no date",
+          'arrival with no date',
           arrivalFlightSearchFromServerWithoutDate
         );
         if (arrivalFlightSearchFromServerWithoutDate.data.length)

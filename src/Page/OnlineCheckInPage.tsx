@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { UserBookingType, ScheduledFlightList } from "../store";
-import styled from "styled-components";
-import { APP_COLOR } from "../consistent";
-import CheckInCard from "../Component/MyBooking/CheckInCard";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { UserBookingType, ScheduledFlightList } from '../store';
+import styled from 'styled-components';
+import { APP_COLOR } from '../consistent';
+import CheckInCard from '../Component/MyBooking/CheckInCard';
 
 const StyledMain = styled.main`
   padding: 20px 50px;
@@ -68,7 +68,7 @@ export default function OnlineCheckInPage() {
     useState<ScheduledFlightList | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/bookings/${parseInt(id)}`)
+    fetch(`https://boolean-air.herokuapp.com/bookings/${parseInt(id)}`)
       .then((res) => res.json())
       .then((data: UserBookingType[]) => {
         setBooking(data[0]);
@@ -82,10 +82,10 @@ export default function OnlineCheckInPage() {
   }, [booking]);
   console.log(booking);
 
-  const dateStringArray = scheduledFlightDetail?.date.toString().split("");
-  dateStringArray?.splice(4, 0, "-");
-  dateStringArray?.splice(7, 0, "-");
-  const displayDate = dateStringArray?.join("");
+  const dateStringArray = scheduledFlightDetail?.date.toString().split('');
+  dateStringArray?.splice(4, 0, '-');
+  dateStringArray?.splice(7, 0, '-');
+  const displayDate = dateStringArray?.join('');
 
   if (!booking || !scheduledFlightDetail)
     return (
@@ -102,25 +102,25 @@ export default function OnlineCheckInPage() {
           Otherwise you need to check in at airport counter
         </h2>
 
-        <div className="checkin-container">
+        <div className='checkin-container'>
           <StyledDiv>
             <p>{scheduledFlightDetail?.flightNumberId}</p>
             <p>{displayDate}</p>
             <p>{scheduledFlightDetail?.time}</p>
-            <div className="route-container">
+            <div className='route-container'>
               <h2>{scheduledFlightDetail?.flightNumber.departureAirportId}</h2>
               <h2>to</h2>
               <h2>{scheduledFlightDetail?.flightNumber.arrivalAirportId}</h2>
             </div>
 
             <span>Tickets: {booking.tickets.length} </span>
-            <div className="price-container">
+            <div className='price-container'>
               <span>Class: {booking.tickets[0].class}</span>
               <span>
-                Price: £{" "}
-                {booking.tickets[0].class === "econ" && scheduledFlightDetail
+                Price: £{' '}
+                {booking.tickets[0].class === 'econ' && scheduledFlightDetail
                   ? booking.tickets.length * scheduledFlightDetail.economicPrice
-                  : booking.tickets[0].class === "first" &&
+                  : booking.tickets[0].class === 'first' &&
                     scheduledFlightDetail
                   ? booking.tickets.length *
                     scheduledFlightDetail.firstClassPrice
