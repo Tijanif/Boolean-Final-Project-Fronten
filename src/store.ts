@@ -128,7 +128,7 @@ type StoreType = {
   airportList: AirportType[] | null;
   setAirportList: () => void;
 
-  loggedInUser: null | userCredentials | { id: number; role: string };
+  loggedInUser: null | userCredentials;
   setLoginUser: (loggedInUser: userCredentials) => void;
   userCredentials: {};
   setUserCredentials: (userCredentials: {}) => void;
@@ -209,7 +209,7 @@ const useStore = create<StoreType>((set, get) => ({
     password: null,
   },
   setUserCredentials: (userCredentials) => set({ userCredentials }),
-  loggedInUser: { id: 30, role: '' },
+  loggedInUser: null,
   setLoginUser: async (userCredentials) => {
     const loginUser = await fetch(`https://boolean-air.herokuapp.com/login`, {
       method: 'POST',
